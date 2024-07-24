@@ -24,8 +24,8 @@ const Profile = () => {
 
   const {getCoverPhoto} = useCoverPhoto(name)
 
-  const URL = 'http://nexcare-api.onrender.com/img/'
-  const COVER_PHOTO_URL = 'http://nexcare-api.onrender.com/coverPhoto/'
+  const URL = 'https://nexcare-api.onrender.com/img/'
+  const COVER_PHOTO_URL = 'https://nexcare-api.onrender.com/coverPhoto/'
 
   const axiosPrivate = useAxiosPrivate()
 
