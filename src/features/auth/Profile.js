@@ -12,9 +12,6 @@ import instagram from '../../img/instagram.png'
 import github from '../../img/github.png'
 import facebook from '../../img/facebook.png'
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 const Profile = () => {
   
   const { auth, profile, setProfile, bgCover } = useAuth()
@@ -90,17 +87,6 @@ const Profile = () => {
         setCoverImgLoading(false)
     } catch (err) {        
         console.error(err)
-      if (!err?.response) {
-        toast.error('Server Unreachable', {
-          autoClose: 5000,
-          position: "top-center"
-        })
-      } else {
-         toast.error('CoverPhoto Upload Failed', {
-          autoClose: 5000,
-          position: "top-center"
-        })
-      }
     } finally {
       setCoverImgLoading(false)
     }
@@ -239,7 +225,7 @@ const Profile = () => {
         </div>
 
       </div>
-      <ToastContainer />
+              
   </div>  
   );
 }
