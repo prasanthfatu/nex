@@ -87,6 +87,17 @@ const Profile = () => {
         setCoverImgLoading(false)
     } catch (err) {        
         console.error(err)
+      if (!err?.response) {
+        toast.error('Server Unreachable', {
+          autoClose: 5000,
+          position: "top-center"
+        })
+      } else {
+         toast.error('CoverPhoto Upload Failed', {
+          autoClose: 5000,
+          position: "top-center"
+        })
+      }
     } finally {
       setCoverImgLoading(false)
     }
