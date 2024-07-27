@@ -30,6 +30,8 @@ const Register = () => {
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
+    const [loading, setLoading] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         setValidName(USER_REGEX.test(user));
@@ -58,7 +60,9 @@ const Register = () => {
         }
 
         try {
-
+            
+            setIsDisabled(true)
+            setLoading(true)
             await axios.post(REGISTER_URL,
                 JSON.stringify({ user, pwd }),
                 {
@@ -93,11 +97,15 @@ const Register = () => {
                 })
             }
             errRef.current.focus();
+            setIsDisabled(false)
+            setLoading(false)
         }
     }
 
     return (
         <>
+                <div className={`data-loading ${loading ? 'active' : 'inactive'}`}></div>
+
                 <section className="register">
 
                     <ToastContainer />
@@ -166,7 +174,7 @@ const Register = () => {
                             Must match the first password input field.
                         </p>
 
-                        <button className="form__input" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button className="form__input" disabled={!validName || !validPwd || !validMatch || isDisabled || loading}>Sign Up</button>
 
                     </form>
 
