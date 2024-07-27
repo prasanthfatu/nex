@@ -644,7 +644,7 @@ form {
   width: 100%;
   height: 3px;
   background: #218bff;
-  animation: data 5s forwards cubic-bezier(0,0,0,0);
+  animation: data 2s forwards cubic-bezier(0,0,0,0);
 }
 .data-loading.active {
   display: block;
