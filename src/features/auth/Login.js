@@ -14,6 +14,9 @@ const Login = () => {
 
     const { setAuth, persist, setPersist } = useAuth()
     const userRef = useRef()
+    
+    const [loading, setLoading] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
@@ -34,7 +37,9 @@ const Login = () => {
         e.preventDefault();
 
         try {
-
+            
+            setIsDisabled(true)
+            setLoading(true)
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ user, pwd }),
                 {
@@ -73,6 +78,8 @@ const Login = () => {
                     position: "top-center"
                 });
             }
+            setIsDisabled(false)
+            setLoading(false)
         }
     }
 
@@ -126,7 +133,7 @@ const Login = () => {
                             required
                         />
 
-                        <button className="form__submit-button">Sign In</button>
+                        <button className="form__submit-button" disabled={isDisabled}>Sign In</button>
 
                         <div>
                             <input
@@ -154,6 +161,7 @@ const Login = () => {
 
     return (
         <div className='login-img'>
+            <div className={`data-loading ${loading ? 'active' : 'inactive'}`}></div>
             {content}
             <p className='login-para'>Please enter your credentials to access your account and explore our platform.</p>
         </div>
