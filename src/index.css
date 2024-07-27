@@ -637,6 +637,35 @@ form {
   background-attachment: fixed;
   padding: 1rem;
 }
+.data-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #45a4f3;
+  animation: data 5s forwards cubic-bezier(0,0,0,0);
+}
+.data-loading.active {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.data-loading.inactive {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+}
+@keyframes data {
+  0% {
+    width: 0%;
+  }
+  100%{
+    width: 100%;
+  }
+}
 .loginheader {
   position: sticky;
   top: 0;
