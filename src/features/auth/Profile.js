@@ -24,8 +24,8 @@ const Profile = () => {
 
   const {getCoverPhoto} = useCoverPhoto(name)
 
-  const URL = 'https://nexcare-api.onrender.com/img/'
-  const COVER_PHOTO_URL = 'https://nexcare-api.onrender.com/coverPhoto/'
+  const URL = 'http://localhost:3500/img/'
+  const COVER_PHOTO_URL = 'http://localhost:3500/coverPhoto/'
 
   const axiosPrivate = useAxiosPrivate()
 
@@ -37,10 +37,19 @@ const Profile = () => {
   const selectedFileRef = useRef(null)
 
   const [openProfileBtn, setOpenProfileBtn] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [proLoading, setProLoading] = useState(false)
   const [coverImgLoading, setCoverImgLoading] = useState(false)
 
   const [coverPhotoImg, setCoverPhotoImg] = useState(null)
+
+  useEffect(() => {
+    const timer = setTimeout(()=> {
+      setLoading(false)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleProfile = useCallback(async () => {    
     if (!selectedFile) return;
@@ -49,7 +58,7 @@ const Profile = () => {
     image.append('name', name);
 
     try {
-      setLoading(true)
+      setProLoading(true)
       await axiosPrivate.post(`/profile?name=${name}`, image, {
         headers: {
           'Authorization': `Bearer ${auth?.accessToken}`,
@@ -60,11 +69,11 @@ const Profile = () => {
       selectedFileRef.current.value = null
       getProfile()
       profileNotify()
-      setLoading(false)
+      setProLoading(false)
     } catch (err) {
       console.error(err)
     } finally {
-      setLoading(false)
+      setProLoading(false)
     }
   }, [selectedFile, axiosPrivate, auth?.accessToken, name, getProfile, profileNotify])
 
@@ -146,6 +155,14 @@ const Profile = () => {
       console.error('Error removing profile:', error);
     }
   }
+
+  if(loading) {
+    return(
+      <>
+          <div className={`data-loading ${loading ? 'active' : 'inactive'}`}></div>
+      </>
+    )
+  }
   
   return (
 
@@ -176,13 +193,13 @@ const Profile = () => {
           <div className='profile-img-container'>
             {profile?.image ? (
               <div>
-                <img src={`${URL}${profile.name}/${profile.image}`} className='profile-picture' alt='Profile' />
+                <img src={`${URL}${profile.name}/${profile.image}`} className='profile-picture' alt='Profile-profile' />
               </div>  
             ) : (
               <div className='profile-picture-err'></div>
             )  
             }
-            <div className={`profile-loading ${loading ? 'active' : 'inactive'}`}></div>
+            <div className={`profile-loading ${proLoading ? 'active' : 'inactive'}`}></div>
           </div>  
 
           <div className='user-info-container'>
@@ -225,7 +242,7 @@ const Profile = () => {
         </div>
 
       </div>
-              
+
   </div>  
   );
 }
