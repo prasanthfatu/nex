@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { Link, useNavigate } from "react-router-dom";
 import axios from '../../app/api/axios'
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -60,7 +61,6 @@ const Register = () => {
         }
 
         try {
-            
             setIsDisabled(true)
             setLoading(true)
             await axios.post(REGISTER_URL,
@@ -83,17 +83,35 @@ const Register = () => {
             if (!err?.response) {
                 toast.error('No Server Response', {
                     autoClose: 5000,
-                    position: "top-center"
+                    position: "top-center",
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 });
             } else if (err.response?.status === 409) {
                 toast.error('Username Taken', {
                     autoClose: 5000,
-                    position: 'top-center'
+                    position: 'top-center',
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 })
             } else {
                 toast.error('Registration Failed', {
                     autoClose: 5000,
-                    position: 'top-center'
+                    position: 'top-center',
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 })
             }
             errRef.current.focus();
@@ -103,7 +121,7 @@ const Register = () => {
     }
 
     return (
-        <>
+        <>  
                 <div className={`data-loading ${loading ? 'active' : 'inactive'}`}></div>
 
                 <section className="register">
