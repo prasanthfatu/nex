@@ -30,6 +30,7 @@ import RegSuccessMessage from './features/auth/RegSuccessMessage';
 import Profile from './features/auth/Profile';
 import ProfileSuccess from './features/auth/ProfileSuccess'
 import useTitle from './hooks/useTitle';
+import Signout from './features/auth/Signout'
 
 function App() {
 
@@ -65,8 +66,9 @@ function App() {
                   <Route path='regsuccessmessage/:notId' element={<RegSuccessMessage />} />
                   <Route path='profilesuccess/:notId' element={<ProfileSuccess />} />
                   <Route path='unauthorized' element={<Unauthorized />} />
-                  <Route path='my-profile' element={<Profile />} />
-
+                  <Route path='my-profile' element={<Profile />}
+                  <Route path='signout' element={<Signout />} />
+                            
                   <Route element={<RequireAuth allowedRoles={[ROLES.HealthcareProvider]} />}>
                     <Route path='appointments'>
                       <Route index element={<Appointments />} />
