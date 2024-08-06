@@ -14,7 +14,7 @@ const Login = () => {
 
     const { setAuth, persist, setPersist } = useAuth()
     const userRef = useRef()
-    
+
     const [loading, setLoading] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false);
 
@@ -37,7 +37,6 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            
             setIsDisabled(true)
             setLoading(true)
             const response = await axios.post(LOGIN_URL,
@@ -52,7 +51,6 @@ const Login = () => {
             setUser('');
             setPwd('');
             navigate('/account')
-
         } catch (err) {
 
             console.error(err)
@@ -60,22 +58,46 @@ const Login = () => {
             if (!err?.response) {
                 toast.error('Server Unreachable', {
                     autoClose: 5000,
-                    position: "top-center"
+                    position: "top-center",
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 });
             } else if (err.response?.status === 400) {
                 toast.error('Missing Username or Password', {
                     autoClose: 5000,
-                    position: "top-center"
+                    position: "top-center",
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 });
             } else if (err.response?.status === 401) {
                 toast.error('Unauthorized', {
                     autoClose: 5000,
-                    position: "top-center"
+                    position: "top-center",
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 });
             } else {
                 toast.error('Login Failed', {
                     autoClose: 5000,
-                    position: "top-center"
+                    position: "top-center",
+                    theme: "light",
+                    style: {
+                        width: 'auto',
+                        height: 'auto',
+                        fontSize: "0.8rem"
+                    }
                 });
             }
             setIsDisabled(false)
